@@ -2,9 +2,12 @@ import React from 'react'
 import { Avatar } from "@mui/material";
 import imgLights from "./images/imgLights.jpg";
 import "./Sidebar.css"
+import { useSelector } from 'react-redux';
+import { selectUser } from './features/userSlice';
 
 
 function Sidebar() {
+    const user = useSelector(selectUser); //get user from redux store
 
     const recentItem = (topic) => (
         <div className="sidebar__recentItem">
@@ -17,9 +20,11 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar__top">
         <img src={imgLights} alt="" />
-        <Avatar className="sidebar__avatar" />
-        <h2>Burak Sag</h2>
-        <h4>iburaksag@gmail.com</h4>
+        <Avatar src={user.photoUrl} className="sidebar__avatar"> 
+        {user.displayName[0].toUpperCase()}
+        </Avatar>
+        <h2>{user.displayName}</h2>
+        <h4>{user.email}</h4>
       </div>
 
       <div className="sidebar__stats">
