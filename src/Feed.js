@@ -14,6 +14,7 @@ import "firebase/compat/firestore";
 import { db } from './firebase';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/userSlice';
+import FlipMove from 'react-flip-move';
 
 function Feed() {
     const user = useSelector(selectUser);
@@ -55,8 +56,14 @@ function Feed() {
           <CreateIcon />
 
           <form>
-            <input value={input} onChange={e => setInput(e.target.value)} type="text" />
-            <button onClick={sendPost} type="submit">Send</button>
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+            />
+            <button onClick={sendPost} type="submit">
+              Send
+            </button>
           </form>
         </div>
 
@@ -71,16 +78,17 @@ function Feed() {
           />
         </div>
       </div>
-
-    {posts.map(({id, data: { name, description, message, photoUrl } }) => (
-        <Post 
-            key={id}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id} //All the posts should have keys for FlipMove animation
             name={name}
             description={description}
             message={message}
             photoUrl={photoUrl}
-        />
-    ))}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 }

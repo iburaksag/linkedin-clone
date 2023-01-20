@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import "./Post.css"
 import { Avatar } from "@mui/material";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -9,13 +9,11 @@ import InputOption from './InputOption';
 import { useSelector } from 'react-redux';
 import { selectUser } from './features/userSlice';
 
- function Post({ name, description, message, photoUrl }) {
-   const user = useSelector(selectUser);
-
+ const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
    return (
-     <div className="post">
+     <div ref={ref} className="post">
        <div className="post__header">
-         <Avatar src={photoUrl}> {name[0]} </Avatar>
+         <Avatar src={photoUrl}> {name[0].toUpperCase()} </Avatar>
          <div className="post__info">
            <h2>{name}</h2>
            <p>{description}</p>
@@ -34,6 +32,6 @@ import { selectUser } from './features/userSlice';
        </div>
      </div>
    );
- }
+ })
  
  export default Post
